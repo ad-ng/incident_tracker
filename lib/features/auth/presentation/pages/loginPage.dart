@@ -58,6 +58,7 @@ class _LogInPageState extends State<LogInPage> {
                 });
                 if (isLoading) {
                   if (emailController.text.isEmpty ||
+                      passwordController.text.length < 7 ||
                       passwordController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -70,7 +71,15 @@ class _LogInPageState extends State<LogInPage> {
                     setState(() {
                       isLoading = false;
                     });
-                  } else {}
+                  } else {
+                    // await AuthApiService().login(
+                    //   emailController.text,
+                    //   passwordController.text,
+                    // );
+                    setState(() {
+                      isLoading = true;
+                    });
+                  }
                 }
               },
               child: Container(
