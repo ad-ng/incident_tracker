@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:incident_tracker/features/auth/presentation/bloc/auth_cubit.dart';
@@ -76,12 +77,37 @@ class _LogInPageState extends State<LogInPage> {
                   });
                   if (isLoading) {
                     if (emailController.text.isEmpty ||
-                        passwordController.text.length < 7 ||
                         passwordController.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
                             'email or password can\'t be empty',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      );
+                      setState(() {
+                        isLoading = false;
+                      });
+                    } else if (passwordController.text.length < 7) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'password must have more than 6 characters',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      );
+                      setState(() {
+                        isLoading = false;
+                      });
+                    } else if (!EmailValidator.validate(
+                      emailController.text.trim(),
+                    )) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'enter correct email',
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
