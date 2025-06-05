@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:incident_tracker/features/auth/presentation/bloc/auth_cubit.dart';
 import 'package:incident_tracker/features/auth/presentation/widgets/myInput.dart';
+import 'package:incident_tracker/features/auth/presentation/widgets/mySnackBar.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -25,9 +26,7 @@ class _LogInPageState extends State<LogInPage> {
           setState(() {
             isLoading = false;
           });
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.error)));
+          MySnackBar.show(context, state.error);
         }
         if (state is AuthLoading) {
           setState(() {
@@ -78,25 +77,17 @@ class _LogInPageState extends State<LogInPage> {
                   if (isLoading) {
                     if (emailController.text.isEmpty ||
                         passwordController.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'email or password can\'t be empty',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
+                      MySnackBar.show(
+                        context,
+                        'email or password can\'t be empty',
                       );
                       setState(() {
                         isLoading = false;
                       });
                     } else if (passwordController.text.length < 7) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'password must have more than 6 characters',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
+                      MySnackBar.show(
+                        context,
+                        'Email must be more than 6 characters',
                       );
                       setState(() {
                         isLoading = false;
@@ -104,14 +95,7 @@ class _LogInPageState extends State<LogInPage> {
                     } else if (!EmailValidator.validate(
                       emailController.text.trim(),
                     )) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'enter correct email',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      );
+                      MySnackBar.show(context, 'enter correct email');
                       setState(() {
                         isLoading = false;
                       });

@@ -16,10 +16,10 @@ class AuthApiService {
 
       if (data['error']) {
         print('Login failed: ${data['message']}');
-        throw 'Login failed: ${data['message']}';
+        throw data['message'];
       } else {
         print('Login successful: ${data['message']}');
-        return 'Login successful: ${data['message']}';
+        return data['message'];
       }
     } catch (e) {
       throw e.toString();
