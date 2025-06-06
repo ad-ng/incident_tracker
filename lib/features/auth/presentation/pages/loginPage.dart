@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:incident_tracker/features/auth/presentation/bloc/auth_cubit.dart';
 import 'package:incident_tracker/features/auth/presentation/widgets/myInput.dart';
 import 'package:incident_tracker/features/auth/presentation/widgets/mySnackBar.dart';
+import 'package:incident_tracker/features/home/presentation/pages/landing_page.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -32,6 +33,12 @@ class _LogInPageState extends State<LogInPage> {
           setState(() {
             isLoading = true;
           });
+        }
+        if (state is AuthSuccess) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LandingPage()),
+          );
         }
       },
       child: Scaffold(
