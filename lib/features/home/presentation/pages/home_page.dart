@@ -16,7 +16,7 @@ IncidentModel incidentModel = IncidentModel(
   category: 'Low Priority',
   Location: 'Kigali',
   dateTime: '1987-11-05T16:59:58.120Z',
-  status: 'Open',
+  status: 'Closed',
   photo: 'image',
 );
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:incident_tracker/features/home/data/models/incident_model.dart';
+import 'package:incident_tracker/features/home/domain/usercases/add_incident_dialog.dart';
 import 'package:incident_tracker/features/home/presentation/pages/home_page.dart';
 import 'package:popover/popover.dart';
 
@@ -49,16 +50,50 @@ class _IncidentCardState extends State<IncidentCard> {
                                   decoration: BoxDecoration(
                                     color: Colors.amber,
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Edit',
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                      SizedBox(width: 5),
-                                      Icon(Icons.edit),
-                                    ],
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      TextEditingController titleController =
+                                          TextEditingController(
+                                            text: incidentModel.title,
+                                          );
+                                      TextEditingController
+                                      descriptionController =
+                                          TextEditingController(
+                                            text: incidentModel.description,
+                                          );
+                                      TextEditingController locationController =
+                                          TextEditingController(
+                                            text: incidentModel.Location,
+                                          );
+                                      TextEditingController dateController =
+                                          TextEditingController(
+                                            text: incidentModel.dateTime,
+                                          );
+
+                                      openModel(
+                                        context,
+                                        titleController,
+                                        descriptionController,
+                                        locationController,
+                                        dateController,
+                                        'Update the incident',
+                                        'Update',
+                                        incidentModel.category,
+                                        incidentModel.status,
+                                      );
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Edit',
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Icon(Icons.edit),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Container(
