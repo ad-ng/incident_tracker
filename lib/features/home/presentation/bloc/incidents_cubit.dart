@@ -9,8 +9,8 @@ class IncidentCubit extends Cubit<IncidentState> {
   Future addIncident(IncidentModel incident) async {
     emit(IncidentLoading());
     try {
-      final response = await incidentRepo.addIncident(incident);
-      emit(IncidentSuccess(response));
+      await incidentRepo.addIncident(incident);
+      fetchAllIncidents();
     } catch (e) {
       emit(IncidentError(e.toString()));
     }
@@ -20,26 +20,26 @@ class IncidentCubit extends Cubit<IncidentState> {
     emit(IncidentLoading());
     try {
       final response = incidentRepo.fetchAllIncidents();
-      return emit(IncidentSuccess(response));
+      return emit(IncidentAllSuccess(response));
     } catch (e) {
       emit(IncidentError(e.toString()));
     }
   }
 
-  Future updateIncident(int id, IncidentModel updatedIncident) async {
+  Future updateIncident(String uuid, IncidentModel updatedIncident) async {
     emit(IncidentLoading());
     try {
-      final response = incidentRepo.updateIncident(id, updatedIncident);
-      return emit(IncidentSuccess(response));
+      incidentRepo.updateIncident(uuid, updatedIncident);
+      fetchAllIncidents();
     } catch (e) {
       emit(IncidentError(e.toString()));
     }
   }
 
-  Future deleteIncident(int id) async {
+  Future deleteIncident(String uuid) async {
     emit(IncidentLoading());
     try {
-      final response = incidentRepo.deleteIncident(id);
+      final response = incidentRepo.deleteIncident(uuid);
       return emit(IncidentSuccess(response));
     } catch (e) {
       emit(IncidentError(e.toString()));
@@ -56,6 +56,11 @@ class IncidentLoading extends IncidentState {}
 class IncidentSuccess extends IncidentState {
   final response;
   IncidentSuccess(this.response);
+}
+
+class IncidentAllSuccess extends IncidentState {
+  final List<IncidentModel> response;
+  IncidentAllSuccess(this.response);
 }
 
 class IncidentError extends IncidentState {

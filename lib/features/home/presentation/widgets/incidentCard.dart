@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:incident_tracker/features/home/data/models/incident_model.dart';
 import 'package:incident_tracker/features/home/domain/usercases/add_incident_dialog.dart';
-import 'package:incident_tracker/features/home/presentation/pages/home_page.dart';
 import 'package:popover/popover.dart';
 
 class IncidentCard extends StatefulWidget {
@@ -19,18 +18,18 @@ class _IncidentCardState extends State<IncidentCard> {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Card(
         child: ListTile(
-          title: Text(incidentModel.title),
+          title: Text(widget.incidentModel.title),
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  Text(incidentModel.category),
+                  Text(widget.incidentModel.category),
                   SizedBox(width: 10),
-                  Text(incidentModel.status),
+                  Text(widget.incidentModel.status),
                 ],
               ),
-              Text(incidentModel.dateTime.substring(0, 10)),
+              // Text(widget.incidentModel.dateTime.substring(0, 10)),
             ],
           ),
           trailing: Builder(
@@ -54,20 +53,23 @@ class _IncidentCardState extends State<IncidentCard> {
                                     onTap: () {
                                       TextEditingController titleController =
                                           TextEditingController(
-                                            text: incidentModel.title,
+                                            text: widget.incidentModel.title,
                                           );
                                       TextEditingController
                                       descriptionController =
                                           TextEditingController(
-                                            text: incidentModel.description,
+                                            text:
+                                                widget
+                                                    .incidentModel
+                                                    .description,
                                           );
                                       TextEditingController locationController =
                                           TextEditingController(
-                                            text: incidentModel.Location,
+                                            text: widget.incidentModel.Location,
                                           );
                                       TextEditingController dateController =
                                           TextEditingController(
-                                            text: incidentModel.dateTime,
+                                            text: widget.incidentModel.dateTime,
                                           );
 
                                       openModel(
@@ -78,8 +80,8 @@ class _IncidentCardState extends State<IncidentCard> {
                                         dateController,
                                         'Update the incident',
                                         'Update',
-                                        incidentModel.category,
-                                        incidentModel.status,
+                                        widget.incidentModel.category,
+                                        widget.incidentModel.status,
                                       );
                                     },
                                     child: Row(

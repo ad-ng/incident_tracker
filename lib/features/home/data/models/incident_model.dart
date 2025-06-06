@@ -2,7 +2,7 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class IncidentModel {
-  int id;
+  String uuid;
   String title;
   String description;
   String category;
@@ -11,7 +11,7 @@ class IncidentModel {
   String status;
   String photo;
   IncidentModel({
-    required this.id,
+    required this.uuid,
     required this.title,
     required this.description,
     required this.category,
@@ -23,7 +23,7 @@ class IncidentModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      'uuid': uuid,
       'title': title,
       'description': description,
       'category': category,
@@ -36,7 +36,7 @@ class IncidentModel {
 
   factory IncidentModel.fromMap(Map<String, dynamic> map) {
     return IncidentModel(
-      id: map['id'] as int,
+      uuid: map['uuid'] as String,
       title: map['title'] as String,
       description: map['description'] as String,
       category: map['category'] as String,

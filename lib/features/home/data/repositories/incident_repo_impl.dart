@@ -9,17 +9,17 @@ class IncidentRepoImpl implements IncidentRepo {
   }
 
   @override
-  Future deleteIncident(int id) async {
-    return await HiveServices().deleteIncident(id);
+  Future deleteIncident(String uuid) async {
+    return await HiveServices().deleteIncident(uuid);
   }
 
   @override
-  List<IncidentModel> fetchAllIncidents() {
+  fetchAllIncidents() {
     return HiveServices().fetchAllIncidents();
   }
 
   @override
-  Future updateIncident(int id, IncidentModel updatedIncident) async {
-    return HiveServices().updateIncident(id, updatedIncident);
+  Future updateIncident(String uuid, IncidentModel updatedIncident) async {
+    return HiveServices().updateIncident(uuid, updatedIncident);
   }
 }

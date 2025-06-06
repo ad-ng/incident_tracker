@@ -12,11 +12,6 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   int currentIndex = 0;
 
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
-
   List pages = [
     HomePage(),
     Center(child: Text(' P R O F I L E')),
@@ -39,18 +34,27 @@ class _LandingPageState extends State<LandingPage> {
       floatingActionButton:
           (currentIndex == 0)
               ? FloatingActionButton(
-                onPressed:
-                    () => openModel(
-                      context,
-                      titleController,
-                      descriptionController,
-                      locationController,
-                      dateController,
-                      'Add a New Incident',
-                      'Save',
-                      'Priority',
-                      'Open',
-                    ),
+                onPressed: () {
+                  TextEditingController titleController =
+                      TextEditingController();
+                  TextEditingController descriptionController =
+                      TextEditingController();
+                  TextEditingController locationController =
+                      TextEditingController();
+                  TextEditingController dateController =
+                      TextEditingController();
+                  return openModel(
+                    context,
+                    titleController,
+                    descriptionController,
+                    locationController,
+                    dateController,
+                    'Add a New Incident',
+                    'Save',
+                    'Priority',
+                    'Open',
+                  );
+                },
                 child: Icon(Icons.add),
               )
               : SizedBox.shrink(),

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:incident_tracker/features/home/data/datasources/local/hiveServices.dart';
+import 'package:incident_tracker/features/home/data/models/incident_model.dart';
+import 'package:incident_tracker/features/home/presentation/bloc/incidents_cubit.dart';
+import 'package:uuid/uuid.dart';
 
 void openModel(
   BuildContext context,
@@ -125,13 +130,28 @@ void openModel(
         ),
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
+              await HiveServices().fetchAllIncidents();
+              // await HiveServices().fetchone();
               Navigator.pop(context);
             },
             child: Text('Cancel'),
           ),
           TextButton(
             onPressed: () {
+              const uuid = Uuid();
+              BlocProvider.of<IncidentCubit>(context).addIncident(
+                IncidentModel(
+                  uuid: uuid.v1(),
+                  title: titleController.text,
+                  description: descriptionController.text,
+                  category: categoryDropDownValue,
+                  Location: locationController.text,
+                  dateTime: dateController.text,
+                  status: statusDropDownValue,
+                  photo: 'testing',
+                ),
+              );
               Navigator.pop(context);
             },
             child: Text(actionName),

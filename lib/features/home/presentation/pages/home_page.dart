@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:incident_tracker/features/home/data/models/incident_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:incident_tracker/features/home/presentation/bloc/incidents_cubit.dart';
 import 'package:incident_tracker/features/home/presentation/widgets/incidentCard.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,27 +10,36 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-IncidentModel incidentModel = IncidentModel(
-  id: 2,
-  title: 'incident title',
-  description: 'best incident ever',
-  category: 'Low Priority',
-  Location: 'Kigali',
-  dateTime: '1987-11-05T16:59:58.120Z',
-  status: 'Closed',
-  photo: 'image',
-);
-
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    BlocProvider.of<IncidentCubit>(context).fetchAllIncidents();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            itemCount: 3,
-            itemBuilder:
-                (context, index) => IncidentCard(incidentModel: incidentModel),
+          child: BlocBuilder<IncidentCubit, IncidentState>(
+            builder: (context, state) {
+              if (state is IncidentAllSuccess) {
+                return ListView.builder(
+                  itemCount: state.response.length,
+                  itemBuilder:
+                      (context, index) =>
+                          IncidentCard(incidentModel: state.response[index]),
+                );
+              }
+              if (state is IncidentError) {
+                return Center(child: Text(state.error));
+              }
+              if (state is IncidentLoading) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return SizedBox.shrink(child: Text('tes'));
+            },
           ),
         ),
       ],

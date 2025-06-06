@@ -6,7 +6,7 @@ class HiveServices {
 
   Future addIncident(IncidentModel incident) async {
     try {
-      final newIncident = await box.put(incident.id, incident.toJson());
+      final newIncident = await box.put(incident.uuid, incident.toJson());
       return newIncident;
     } catch (e) {
       throw Future.error(e.toString());
@@ -14,22 +14,32 @@ class HiveServices {
   }
 
   List<IncidentModel> fetchAllIncidents() {
-    return box.keys.map((key) {
-      final json = box.get(key);
-      final incident = IncidentModel.fromJson(json);
-      return incident;
-    }).toList();
-  }
+    try {
+      Map<dynamic, dynamic> allItemsMap = box.toMap();
+      List<dynamic> allItems = allItemsMap.values.toList();
 
-  Future updateIncident(int id, IncidentModel updatedIncident) async {
-    if (box.containsKey(id)) {
-      await box.put(id, updatedIncident.toJson());
+      if (allItems != null && allItems is List) {
+        return allItems.map((json) => IncidentModel.fromJson(json)).toList();
+      } else {
+        throw Exception(
+          'Expected a list of properties but got ${allItems.runtimeType}',
+        );
+      }
+    } catch (e) {
+      // Catch other errors
+      throw 'something went wrong';
     }
   }
 
-  Future deleteIncident(int id) async {
-    if (box.containsKey(id)) {
-      await box.delete(id);
+  Future updateIncident(String uuid, IncidentModel updatedIncident) async {
+    if (box.containsKey(uuid)) {
+      await box.put(uuid, updatedIncident.toJson());
+    }
+  }
+
+  Future deleteIncident(String uuid) async {
+    if (box.containsKey(uuid)) {
+      await box.delete(uuid);
     }
   }
 }
