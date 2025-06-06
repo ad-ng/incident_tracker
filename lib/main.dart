@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:incident_tracker/features/auth/data/repository/auth_repo_impl.dart';
+import 'package:incident_tracker/features/auth/presentation/bloc/auth_cubit.dart';
+import 'package:incident_tracker/features/auth/presentation/pages/loginPage.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+
+  final _authRepo = AuthRepoImpl();
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => AuthCubit(_authRepo))],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
+        home: LogInPage(),
+      ),
+    );
+  }
+}
