@@ -6,9 +6,8 @@ class IncidentModel {
   String title;
   String description;
   String category;
-  String priority;
   String Location;
-  DateTime dateTime;
+  String dateTime;
   String status;
   String photo;
   IncidentModel({
@@ -16,7 +15,6 @@ class IncidentModel {
     required this.title,
     required this.description,
     required this.category,
-    required this.priority,
     required this.Location,
     required this.dateTime,
     required this.status,
@@ -29,9 +27,8 @@ class IncidentModel {
       'title': title,
       'description': description,
       'category': category,
-      'priority': priority,
       'Location': Location,
-      'dateTime': dateTime.millisecondsSinceEpoch,
+      'dateTime': dateTime,
       'status': status,
       'photo': photo,
     };
@@ -43,9 +40,8 @@ class IncidentModel {
       title: map['title'] as String,
       description: map['description'] as String,
       category: map['category'] as String,
-      priority: map['priority'] as String,
       Location: map['Location'] as String,
-      dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime'] as int),
+      dateTime: map['dateTime'] as String,
       status: map['status'] as String,
       photo: map['photo'] as String,
     );
