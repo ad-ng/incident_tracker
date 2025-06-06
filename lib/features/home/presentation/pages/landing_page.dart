@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:incident_tracker/features/home/presentation/pages/home_page.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -9,6 +10,12 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   int currentIndex = 0;
+
+  List pages = [
+    HomePage(),
+    Center(child: Text(' P R O F I L E')),
+    Center(child: Text(' S E T T I N G S')),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +28,7 @@ class _LandingPageState extends State<LandingPage> {
           ),
         ],
       ),
+      body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (value) {
