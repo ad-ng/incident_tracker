@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:incident_tracker/features/auth/data/repository/auth_repo_impl.dart';
 import 'package:incident_tracker/features/auth/presentation/bloc/auth_cubit.dart';
 import 'package:incident_tracker/features/home/presentation/pages/landing_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox('myIncidents');
   runApp(MyApp());
 }
 
