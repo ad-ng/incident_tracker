@@ -36,7 +36,11 @@ class _HomePageState extends State<HomePage> {
                 return Center(
                   child: Text(
                     state.error,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.blue,
+                    ),
                   ),
                 );
               }

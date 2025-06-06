@@ -25,7 +25,14 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Incident tracker'),
+        title: Text(
+          'Incident tracker',
+          style: TextStyle(
+            color: Colors.blue[500],
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () async {
@@ -33,7 +40,11 @@ class _LandingPageState extends State<LandingPage> {
               await prefs.clear();
               context.goNamed('login');
             },
-            icon: Icon(Icons.logout_outlined, size: 35),
+            icon: Icon(
+              Icons.logout_outlined,
+              size: 35,
+              color: Colors.blue[500],
+            ),
           ),
         ],
       ),

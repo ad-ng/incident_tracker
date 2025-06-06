@@ -49,14 +49,14 @@ class _MyInputState extends State<MyInput> {
                   )
                   : SizedBox.shrink(),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
+            borderSide: BorderSide(color: Colors.blue),
             borderRadius: BorderRadius.circular(15),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
+            borderSide: BorderSide(color: Colors.blue),
             borderRadius: BorderRadius.circular(15),
           ),
-          fillColor: Colors.black,
+          fillColor: Colors.blue[400],
           hintText: widget.hintText,
           hintStyle: TextStyle(color: Colors.white),
         ),
