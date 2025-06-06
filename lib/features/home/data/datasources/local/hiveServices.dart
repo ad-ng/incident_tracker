@@ -6,8 +6,7 @@ class HiveServices {
 
   Future addIncident(IncidentModel incident) async {
     try {
-      final newIncident = await box.put(incident.uuid, incident.toJson());
-      return newIncident;
+      await box.put(incident.uuid, incident.toJson());
     } catch (e) {
       throw Future.error(e.toString());
     }
@@ -27,7 +26,7 @@ class HiveServices {
       }
     } catch (e) {
       // Catch other errors
-      throw 'something went wrong';
+      throw 'No incident yet';
     }
   }
 
@@ -36,9 +35,7 @@ class HiveServices {
     IncidentModel updatedIncident,
   ) async {
     if (box.containsKey(uuid)) {
-      print('Updating incident with UUID: $uuid');
       await box.put(uuid, updatedIncident.toJson());
-      print('Update successful');
     } else {
       print('Incident with UUID $uuid not found');
     }

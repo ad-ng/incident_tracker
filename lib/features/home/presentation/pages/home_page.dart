@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               if (state is IncidentLoading) {
                 return Center(child: CircularProgressIndicator());
               }
-              return SizedBox.shrink(child: Text('tes'));
+              return SizedBox.shrink();
             },
           ),
         ),

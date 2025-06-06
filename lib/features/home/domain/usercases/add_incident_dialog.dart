@@ -136,38 +136,35 @@ void openModel(
             child: Text('Cancel'),
           ),
           TextButton(
-            onPressed: () {
-              const uuid = Uuid();
-              (actionName == 'Save')
-                  ? BlocProvider.of<IncidentCubit>(context).addIncident(
-                    IncidentModel(
-                      uuid: uuid.v1(),
-                      title: titleController.text,
-                      description: descriptionController.text,
-                      category: categoryDropDownValue,
-                      Location: locationController.text,
-                      dateTime: dateController.text,
-                      status: statusDropDownValue,
-                      photo: 'testing',
-                    ),
-                  )
-                  : BlocProvider.of<IncidentCubit>(context).updateIncident(
+            onPressed: () async {
+              final uuid = const Uuid();
+              final incident = IncidentModel(
+                uuid: (actionName == 'Save') ? uuid.v1() : uuidNew!,
+                title: titleController.text,
+                description: descriptionController.text,
+                category: categoryDropDownValue,
+                Location: locationController.text,
+                dateTime: dateController.text,
+                status: statusDropDownValue,
+                photo: 'testing',
+              );
+
+              try {
+                if (actionName == 'Save') {
+                  await context.read<IncidentCubit>().addIncident(incident);
+                } else {
+                  await context.read<IncidentCubit>().updateIncident(
                     uuidNew!,
-                    IncidentModel(
-                      uuid: uuidNew,
-                      title: titleController.text,
-                      description: descriptionController.text,
-                      category: categoryDropDownValue,
-                      Location: locationController.text,
-                      dateTime: dateController.text,
-                      status: statusDropDownValue,
-                      photo: 'testing',
-                    ),
+                    incident,
                   );
-              (actionName == 'Save')
-                  ? Navigator.pop(context)
-                  : Navigator.pop(context);
-              Navigator.pop(context);
+                }
+
+                Navigator.pop(context);
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Something went wrong: $e')),
+                );
+              }
             },
             child: Text(actionName),
           ),
