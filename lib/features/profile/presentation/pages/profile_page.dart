@@ -46,13 +46,18 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Card(
+                      color: Colors.blue[300],
                       child: ListTile(
-                        leading: Icon(Icons.person_2),
-                        title: Text('Names'),
+                        leading: Icon(Icons.person_2, color: Colors.white),
+                        title: Text(
+                          'Names',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         trailing: Text(
                           snapshot.data!.firstName! +
                               '  ' +
                               snapshot.data!.lastName!,
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -60,40 +65,68 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Card(
+                      color: Colors.blue[300],
                       child: ListTile(
-                        leading: Icon(Icons.man),
-                        title: Text('Gender'),
-                        trailing: Text(snapshot.data!.gender!),
+                        leading: Icon(Icons.man, color: Colors.white),
+                        title: Text(
+                          'Gender',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        trailing: Text(
+                          snapshot.data!.gender!,
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Card(
+                      color: Colors.blue[300],
                       child: ListTile(
-                        leading: Icon(Icons.email),
-                        title: Text('Email'),
-                        trailing: Text(snapshot.data!.email!),
+                        leading: Icon(Icons.email, color: Colors.white),
+                        title: Text(
+                          'Email',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        trailing: Text(
+                          snapshot.data!.email!,
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Card(
+                      color: Colors.blue[300],
                       child: ListTile(
-                        leading: Icon(Icons.phone),
-                        title: Text('Phone'),
-                        trailing: Text(snapshot.data!.phone!),
+                        leading: Icon(Icons.phone, color: Colors.white),
+                        title: Text(
+                          'Phone',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        trailing: Text(
+                          snapshot.data!.phone!,
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Card(
+                      color: Colors.blue[300],
                       child: ListTile(
-                        leading: Icon(Icons.lock_person),
-                        title: Text('Account Type'),
-                        trailing: Text(snapshot.data!.accountType!),
+                        leading: Icon(Icons.lock_person, color: Colors.white),
+                        title: Text(
+                          'Account Type',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        trailing: Text(
+                          snapshot.data!.accountType!,
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
