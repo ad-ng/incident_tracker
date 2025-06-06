@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:incident_tracker/features/home/presentation/pages/home_page.dart';
 import 'package:incident_tracker/features/home/domain/usercases/add_incident_dialog.dart';
+import 'package:incident_tracker/features/profile/presentation/pages/profile_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LandingPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class _LandingPageState extends State<LandingPage> {
 
   List pages = [
     HomePage(),
-    Center(child: Text(' P R O F I L E')),
+    ProfilePage(),
     Center(child: Text(' S E T T I N G S')),
   ];
 
