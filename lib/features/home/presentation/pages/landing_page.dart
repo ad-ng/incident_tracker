@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:incident_tracker/features/home/presentation/pages/home_page.dart';
 import 'package:incident_tracker/features/home/domain/usercases/add_incident_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -25,7 +27,11 @@ class _LandingPageState extends State<LandingPage> {
         title: Text('Incident tracker'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+              context.goNamed('login');
+            },
             icon: Icon(Icons.logout_outlined, size: 35),
           ),
         ],

@@ -1,10 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:incident_tracker/features/auth/presentation/bloc/auth_cubit.dart';
 import 'package:incident_tracker/features/auth/presentation/widgets/myInput.dart';
 import 'package:incident_tracker/features/auth/presentation/widgets/mySnackBar.dart';
-import 'package:incident_tracker/features/home/presentation/pages/landing_page.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -35,10 +35,7 @@ class _LogInPageState extends State<LogInPage> {
           });
         }
         if (state is AuthSuccess) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => LandingPage()),
-          );
+          context.goNamed('landingPage');
         }
       },
       child: Scaffold(
