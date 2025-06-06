@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:incident_tracker/features/home/presentation/pages/home_page.dart';
 import 'package:incident_tracker/features/home/domain/usercases/add_incident_dialog.dart';
 import 'package:incident_tracker/features/profile/presentation/pages/profile_page.dart';
+import 'package:incident_tracker/features/setting/presentation/pages/setting_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LandingPage extends StatefulWidget {
@@ -15,11 +16,7 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   int currentIndex = 0;
 
-  List pages = [
-    HomePage(),
-    ProfilePage(),
-    Center(child: Text(' S E T T I N G S')),
-  ];
+  List pages = [HomePage(), ProfilePage(), SettingPage()];
 
   @override
   Widget build(BuildContext context) {
