@@ -18,7 +18,7 @@ class HiveServices {
       Map<dynamic, dynamic> allItemsMap = box.toMap();
       List<dynamic> allItems = allItemsMap.values.toList();
 
-      if (allItems != null && allItems is List) {
+      if (allItems.isNotEmpty) {
         return allItems.map((json) => IncidentModel.fromJson(json)).toList();
       } else {
         throw Exception(
@@ -31,9 +31,16 @@ class HiveServices {
     }
   }
 
-  Future updateIncident(String uuid, IncidentModel updatedIncident) async {
+  Future<void> updateIncident(
+    String uuid,
+    IncidentModel updatedIncident,
+  ) async {
     if (box.containsKey(uuid)) {
+      print('Updating incident with UUID: $uuid');
       await box.put(uuid, updatedIncident.toJson());
+      print('Update successful');
+    } else {
+      print('Incident with UUID $uuid not found');
     }
   }
 

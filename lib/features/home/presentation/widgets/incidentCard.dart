@@ -82,6 +82,7 @@ class _IncidentCardState extends State<IncidentCard> {
                                         'Update',
                                         widget.incidentModel.category,
                                         widget.incidentModel.status,
+                                        widget.incidentModel.uuid,
                                       );
                                     },
                                     child: Row(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:incident_tracker/features/home/data/datasources/local/hiveServices.dart';
 import 'package:incident_tracker/features/home/data/models/incident_model.dart';
 import 'package:incident_tracker/features/home/presentation/bloc/incidents_cubit.dart';
 import 'package:uuid/uuid.dart';
@@ -15,6 +14,7 @@ void openModel(
   String actionName,
   String categoryDropDownValue,
   String statusDropDownValue,
+  String? uuidNew,
 ) {
   showDialog(
     context: context,
@@ -131,8 +131,6 @@ void openModel(
         actions: [
           TextButton(
             onPressed: () async {
-              await HiveServices().fetchAllIncidents();
-              // await HiveServices().fetchone();
               Navigator.pop(context);
             },
             child: Text('Cancel'),
@@ -140,18 +138,35 @@ void openModel(
           TextButton(
             onPressed: () {
               const uuid = Uuid();
-              BlocProvider.of<IncidentCubit>(context).addIncident(
-                IncidentModel(
-                  uuid: uuid.v1(),
-                  title: titleController.text,
-                  description: descriptionController.text,
-                  category: categoryDropDownValue,
-                  Location: locationController.text,
-                  dateTime: dateController.text,
-                  status: statusDropDownValue,
-                  photo: 'testing',
-                ),
-              );
+              (actionName == 'Save')
+                  ? BlocProvider.of<IncidentCubit>(context).addIncident(
+                    IncidentModel(
+                      uuid: uuid.v1(),
+                      title: titleController.text,
+                      description: descriptionController.text,
+                      category: categoryDropDownValue,
+                      Location: locationController.text,
+                      dateTime: dateController.text,
+                      status: statusDropDownValue,
+                      photo: 'testing',
+                    ),
+                  )
+                  : BlocProvider.of<IncidentCubit>(context).updateIncident(
+                    uuidNew!,
+                    IncidentModel(
+                      uuid: uuidNew,
+                      title: titleController.text,
+                      description: descriptionController.text,
+                      category: categoryDropDownValue,
+                      Location: locationController.text,
+                      dateTime: dateController.text,
+                      status: statusDropDownValue,
+                      photo: 'testing',
+                    ),
+                  );
+              (actionName == 'Save')
+                  ? Navigator.pop(context)
+                  : Navigator.pop(context);
               Navigator.pop(context);
             },
             child: Text(actionName),
