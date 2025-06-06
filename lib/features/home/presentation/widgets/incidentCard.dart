@@ -19,16 +19,26 @@ class _IncidentCardState extends State<IncidentCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Card(
+        color: Colors.blue[300],
         child: ListTile(
-          title: Text(widget.incidentModel.title),
+          title: Text(
+            widget.incidentModel.title,
+            style: TextStyle(color: Colors.white),
+          ),
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  Text(widget.incidentModel.category),
+                  Text(
+                    widget.incidentModel.category,
+                    style: TextStyle(color: Colors.black),
+                  ),
                   SizedBox(width: 10),
-                  Text(widget.incidentModel.status),
+                  Text(
+                    widget.incidentModel.status,
+                    style: TextStyle(color: Colors.yellowAccent[100]),
+                  ),
                 ],
               ),
               // Text(widget.incidentModel.dateTime.substring(0, 10)),
@@ -103,7 +113,9 @@ class _IncidentCardState extends State<IncidentCard> {
                                 ),
                                 Container(
                                   height: 40,
-                                  decoration: BoxDecoration(color: Colors.blue),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                  ),
                                   child: GestureDetector(
                                     onTap: () {
                                       Navigator.pop(context);
@@ -160,7 +172,7 @@ class _IncidentCardState extends State<IncidentCard> {
                           ),
                       direction: PopoverDirection.right,
                     ),
-                child: Icon(Icons.more_vert_outlined),
+                child: Icon(Icons.more_vert_outlined, color: Colors.white),
               );
             },
           ),

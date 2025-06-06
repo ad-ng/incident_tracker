@@ -33,7 +33,16 @@ class _HomePageState extends State<HomePage> {
                 );
               }
               if (state is IncidentError) {
-                return Center(child: Text(state.error));
+                return Center(
+                  child: Text(
+                    state.error,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.blue,
+                    ),
+                  ),
+                );
               }
               if (state is IncidentLoading) {
                 return Center(child: CircularProgressIndicator());

@@ -28,7 +28,8 @@ void openModel(
       List<String> statusItems = ['Open', 'Closed'];
 
       return AlertDialog(
-        title: Text(modelTitle),
+        backgroundColor: Colors.white,
+        title: Text(modelTitle, style: TextStyle(color: Colors.blue[300])),
         content: Container(
           height: 380,
           child: Form(
@@ -39,28 +40,67 @@ void openModel(
                     children: [
                       TextFormField(
                         controller: titleController,
+                        cursorColor: Colors.white,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                        ),
                         decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          fillColor: Colors.blue.shade300,
+                          filled: true,
                           labelText: 'Title',
+                          labelStyle: TextStyle(color: Colors.black),
                         ),
                       ),
                       SizedBox(height: 8),
                       TextFormField(
                         controller: descriptionController,
+                        cursorColor: Colors.white,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                        ),
                         decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
                           labelText: 'Description',
+                          labelStyle: TextStyle(color: Colors.black),
+                          fillColor: Colors.blue.shade300,
+                          filled: true,
                         ),
                       ),
                       SizedBox(height: 8),
                       TextFormField(
                         controller: locationController,
+                        cursorColor: Colors.white,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                        ),
                         decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
                           labelText: 'Location',
+                          labelStyle: TextStyle(color: Colors.black),
+                          fillColor: Colors.blue.shade300,
+                          filled: true,
                         ),
                       ),
                       SizedBox(height: 8),
@@ -81,6 +121,7 @@ void openModel(
                             child: DropdownButton<String>(
                               isExpanded: true,
                               value: categoryDropDownValue,
+                              dropdownColor: Colors.blue[300],
                               items:
                                   categoryItems.map((String item) {
                                     return DropdownMenuItem(
@@ -105,6 +146,7 @@ void openModel(
                             child: DropdownButton<String>(
                               isExpanded: true,
                               value: statusDropDownValue,
+                              dropdownColor: Colors.blue[300],
                               items:
                                   statusItems.map((String item) {
                                     return DropdownMenuItem(

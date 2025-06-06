@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:incident_tracker/features/home/presentation/pages/home_page.dart';
 import 'package:incident_tracker/features/home/domain/usercases/add_incident_dialog.dart';
+import 'package:incident_tracker/features/profile/presentation/pages/profile_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -14,7 +17,7 @@ class _LandingPageState extends State<LandingPage> {
 
   List pages = [
     HomePage(),
-    Center(child: Text(' P R O F I L E')),
+    ProfilePage(),
     Center(child: Text(' S E T T I N G S')),
   ];
 
@@ -22,11 +25,26 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Incident tracker'),
+        title: Text(
+          'Incident tracker',
+          style: TextStyle(
+            color: Colors.blue[500],
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.logout_outlined, size: 35),
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+              context.goNamed('login');
+            },
+            icon: Icon(
+              Icons.logout_outlined,
+              size: 35,
+              color: Colors.blue[500],
+            ),
           ),
         ],
       ),

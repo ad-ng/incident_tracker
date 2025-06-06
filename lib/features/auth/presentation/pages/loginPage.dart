@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:incident_tracker/features/auth/presentation/bloc/auth_cubit.dart';
 import 'package:incident_tracker/features/auth/presentation/widgets/myInput.dart';
 import 'package:incident_tracker/features/auth/presentation/widgets/mySnackBar.dart';
@@ -33,13 +34,20 @@ class _LogInPageState extends State<LogInPage> {
             isLoading = true;
           });
         }
+        if (state is AuthSuccess) {
+          context.goNamed('landingPage');
+        }
       },
       child: Scaffold(
         body: SafeArea(
           child: Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-              Image.asset('././lib/images/logo.png', height: 70),
+              Image.asset(
+                '././lib/images/logo.png',
+                height: 70,
+                color: Colors.blue[300],
+              ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.04),
               Center(
                 child: Text(
@@ -59,13 +67,13 @@ class _LogInPageState extends State<LogInPage> {
               SizedBox(height: 35),
               MyInput(
                 hintText: 'Email',
-                suffixIcon: Icon(Icons.email),
+                suffixIcon: Icon(Icons.email, color: Colors.white),
                 isPassword: false,
                 textEditingController: emailController,
               ),
               MyInput(
                 hintText: 'Password',
-                suffixIcon: Icon(Icons.lock),
+                suffixIcon: Icon(Icons.lock, color: Colors.white),
                 isPassword: true,
                 textEditingController: passwordController,
               ),
@@ -111,13 +119,15 @@ class _LogInPageState extends State<LogInPage> {
                   height: 50,
                   margin: EdgeInsets.only(left: 15, right: 15, top: 20),
                   decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: Colors.blue[400],
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
                     child:
                         (isLoading)
-                            ? CircularProgressIndicator.adaptive()
+                            ? CircularProgressIndicator.adaptive(
+                              backgroundColor: Colors.white,
+                            )
                             : Text(
                               'Log in',
                               style: TextStyle(
