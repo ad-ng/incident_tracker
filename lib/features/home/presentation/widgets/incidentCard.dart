@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:incident_tracker/features/home/data/models/incident_model.dart';
 import 'package:incident_tracker/features/home/domain/usercases/add_incident_dialog.dart';
+import 'package:incident_tracker/features/home/presentation/bloc/incidents_cubit.dart';
 import 'package:popover/popover.dart';
 
 class IncidentCard extends StatefulWidget {
@@ -102,19 +104,55 @@ class _IncidentCardState extends State<IncidentCard> {
                                 Container(
                                   height: 40,
                                   decoration: BoxDecoration(color: Colors.blue),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Delete',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: Text('confirmation dialog'),
+                                            content: Text(
+                                              'Are you sure you want to delete this incident ?',
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('Cancel'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                  BlocProvider.of<
+                                                    IncidentCubit
+                                                  >(context).deleteIncident(
+                                                    widget.incidentModel.uuid,
+                                                  );
+                                                },
+                                                child: Text('Delete'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Delete',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(width: 5),
-                                      Icon(Icons.delete, color: Colors.white),
-                                    ],
+                                        SizedBox(width: 5),
+                                        Icon(Icons.delete, color: Colors.white),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],

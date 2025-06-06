@@ -39,8 +39,8 @@ class IncidentCubit extends Cubit<IncidentState> {
   Future deleteIncident(String uuid) async {
     emit(IncidentLoading());
     try {
-      final response = incidentRepo.deleteIncident(uuid);
-      return emit(IncidentSuccess(response));
+      incidentRepo.deleteIncident(uuid);
+      fetchAllIncidents();
     } catch (e) {
       emit(IncidentError(e.toString()));
     }
