@@ -1,4 +1,4 @@
-# My Flutter App
+# Incident Tracker App
 
 This is a Flutter-based mobile application developed as part of an exam assignment. It includes features such as user authentication, profile management, incident reporting, and offline storage.
 
