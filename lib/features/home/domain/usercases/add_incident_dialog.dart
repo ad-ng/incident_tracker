@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:incident_tracker/features/home/data/models/incident_model.dart';
 import 'package:incident_tracker/features/home/presentation/bloc/incidents_cubit.dart';
 import 'package:incident_tracker/features/home/presentation/widgets/myDateTimePicker.dart';
@@ -16,6 +20,7 @@ void openModel(
   String categoryDropDownValue,
   String statusDropDownValue,
   String? uuidNew,
+  String? currentPhoto,
 ) {
   showDialog(
     context: context,
@@ -30,11 +35,27 @@ void openModel(
 
       final _formKey = GlobalKey<FormState>();
 
+      final ImagePicker picker = ImagePicker();
+      String? photo;
+
+      Future<void> pickImage() async {
+        final XFile? pickedFile = await picker.pickImage(
+          source: ImageSource.gallery,
+        );
+
+        if (pickedFile != null) {
+          File imageFile = File(pickedFile.path);
+          final bytes = await imageFile.readAsBytes();
+          photo = base64Encode(bytes);
+          currentPhoto = photo;
+        }
+      }
+
       return AlertDialog(
         backgroundColor: Colors.white,
         title: Text(modelTitle, style: TextStyle(color: Colors.blue[300])),
         content: Container(
-          height: 380,
+          height: 400,
           child: Form(
             key: _formKey,
             child: StatefulBuilder(
@@ -136,6 +157,26 @@ void openModel(
                       SizedBox(height: 8),
                       MyDateTimePicker(dobController: dateController),
                       SizedBox(height: 8),
+                      GestureDetector(
+                        onTap: pickImage,
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.blue[300],
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Select Image',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       Row(
                         children: [
                           Text("Category:", style: TextStyle(fontSize: 16)),
@@ -213,7 +254,7 @@ void openModel(
                   Location: locationController.text,
                   dateTime: dateController.text,
                   status: statusDropDownValue,
-                  photo: 'testing',
+                  photo: (actionName == 'Save') ? photo ?? ' ' : currentPhoto!,
                 );
 
                 try {

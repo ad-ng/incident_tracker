@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:incident_tracker/features/home/data/models/incident_model.dart';
@@ -53,6 +55,14 @@ class _IncidentCardState extends State<IncidentCard> {
               ),
             ],
           ),
+          leading:
+              (widget.incidentModel.photo != ' ')
+                  ? Image.memory(
+                    base64Decode(widget.incidentModel.photo),
+                    height: 40,
+                    width: 40,
+                  )
+                  : SizedBox.shrink(),
           trailing: Builder(
             builder: (context) {
               return GestureDetector(
@@ -104,6 +114,7 @@ class _IncidentCardState extends State<IncidentCard> {
                                         widget.incidentModel.category,
                                         widget.incidentModel.status,
                                         widget.incidentModel.uuid,
+                                        widget.incidentModel.photo,
                                       );
                                     },
                                     child: Row(
