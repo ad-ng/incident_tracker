@@ -237,7 +237,12 @@ void openModel(
         actions: [
           TextButton(
             onPressed: () async {
-              Navigator.pop(context);
+              if (actionName == 'Save') {
+                Navigator.pop(context);
+              } else {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              }
             },
             child: Text('Cancel'),
           ),
@@ -267,7 +272,12 @@ void openModel(
                     );
                   }
 
-                  Navigator.pop(context);
+                  if (actionName == 'Save') {
+                    Navigator.pop(context);
+                  } else {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  }
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Something went wrong: $e')),
