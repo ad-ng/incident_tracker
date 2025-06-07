@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:incident_tracker/features/home/data/models/incident_model.dart';
 import 'package:incident_tracker/features/home/domain/usercases/add_incident_dialog.dart';
 import 'package:incident_tracker/features/home/presentation/bloc/incidents_cubit.dart';
+import 'package:intl/intl.dart';
 import 'package:popover/popover.dart';
 
 class IncidentCard extends StatefulWidget {
@@ -41,9 +44,25 @@ class _IncidentCardState extends State<IncidentCard> {
                   ),
                 ],
               ),
-              // Text(widget.incidentModel.dateTime.substring(0, 10)),
+              Text(
+                DateFormat(
+                  'yyyy-MM-dd HH:mm',
+                ).format(DateTime.parse(widget.incidentModel.dateTime)),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
+          leading:
+              (widget.incidentModel.photo != ' ')
+                  ? Image.memory(
+                    base64Decode(widget.incidentModel.photo),
+                    height: 40,
+                    width: 40,
+                  )
+                  : SizedBox.shrink(),
           trailing: Builder(
             builder: (context) {
               return GestureDetector(
@@ -95,6 +114,7 @@ class _IncidentCardState extends State<IncidentCard> {
                                         widget.incidentModel.category,
                                         widget.incidentModel.status,
                                         widget.incidentModel.uuid,
+                                        widget.incidentModel.photo,
                                       );
                                     },
                                     child: Row(

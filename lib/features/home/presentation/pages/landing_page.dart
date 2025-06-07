@@ -69,6 +69,7 @@ class _LandingPageState extends State<LandingPage> {
                     'Priority',
                     'Open',
                     '',
+                    ' ',
                   );
                 },
                 child: Icon(Icons.add),
