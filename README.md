@@ -18,6 +18,10 @@ This is a Flutter-based mobile application developed as part of an exam assignme
 |------------|-------------|----------------|
 | ![Login](./lib/images/login.png) | ![Home](./lib/images/home.png) | ![Form](./lib/images/form.png) |
 
+| Incident Card | Delete Confirmation | Profile Page |
+|---------------|---------------------|--------------|
+| ![Incident](./lib/images/home1.png) | ![Delete](./lib/images/home2.png) | ![Profile](./lib/images/profile.png) |
+
 ---
 
 ## 🛠 Tools and Packages Used
@@ -52,7 +56,7 @@ This is a Flutter-based mobile application developed as part of an exam assignme
 ### 🗂 Data Persistence
 
 - **shared_preferences: ^2.5.3**  
-  Stores simple key-value pairs, such as user login state or settings, across app launches.
+  Stores simple key-value pairs, such as user token or settings, across app launches.
 
 ---
 
