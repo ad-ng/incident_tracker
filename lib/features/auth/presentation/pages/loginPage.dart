@@ -96,7 +96,7 @@ class _LogInPageState extends State<LogInPage> {
                       } else if (passwordController.text.length < 7) {
                         MySnackBar.show(
                           context,
-                          'Email must be more than 6 characters',
+                          'Password must be more than 6 characters',
                         );
                         setState(() {
                           isLoading = false;

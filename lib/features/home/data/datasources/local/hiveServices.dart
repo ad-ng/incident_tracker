@@ -26,7 +26,7 @@ class HiveServices {
       }
     } catch (e) {
       // Catch other errors
-      throw 'No incident yet';
+      throw 'No Incident Is Recorded Yet';
     }
   }
 
