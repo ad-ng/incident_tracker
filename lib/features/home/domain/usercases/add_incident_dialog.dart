@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:incident_tracker/features/home/data/models/incident_model.dart';
 import 'package:incident_tracker/features/home/presentation/bloc/incidents_cubit.dart';
@@ -265,16 +266,28 @@ void openModel(
                 try {
                   if (actionName == 'Save') {
                     await context.read<IncidentCubit>().addIncident(incident);
+                    Fluttertoast.showToast(
+                      msg: "Incident Added Successfully",
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.BOTTOM,
+                      backgroundColor: Colors.blue,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                    Navigator.pop(context);
                   } else {
                     await context.read<IncidentCubit>().updateIncident(
                       uuidNew!,
                       incident,
                     );
-                  }
-
-                  if (actionName == 'Save') {
-                    Navigator.pop(context);
-                  } else {
+                    Fluttertoast.showToast(
+                      msg: "Incident Updated successfully",
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.BOTTOM,
+                      backgroundColor: Colors.blue,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
                     Navigator.pop(context);
                     Navigator.pop(context);
                   }
