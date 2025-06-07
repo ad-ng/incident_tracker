@@ -28,12 +28,15 @@ void openModel(
 
       List<String> statusItems = ['Open', 'Closed'];
 
+      final _formKey = GlobalKey<FormState>();
+
       return AlertDialog(
         backgroundColor: Colors.white,
         title: Text(modelTitle, style: TextStyle(color: Colors.blue[300])),
         content: Container(
           height: 380,
           child: Form(
+            key: _formKey,
             child: StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState) {
                 return SingleChildScrollView(
@@ -59,6 +62,16 @@ void openModel(
                           labelText: 'Title',
                           labelStyle: TextStyle(color: Colors.black),
                         ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Title is required';
+                          } else if (value.trim().length < 3) {
+                            return 'Title must be at least 3 characters';
+                          } else if (value.trim().length > 25) {
+                            return 'Title must be at most 25 characters';
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(height: 8),
                       TextFormField(
@@ -81,6 +94,16 @@ void openModel(
                           fillColor: Colors.blue.shade300,
                           filled: true,
                         ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Description is required';
+                          } else if (value.trim().length < 3) {
+                            return 'Description must be at least 3 characters';
+                          } else if (value.trim().length > 250) {
+                            return 'Description must be at most 250 characters';
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(height: 8),
                       TextFormField(
@@ -103,6 +126,12 @@ void openModel(
                           fillColor: Colors.blue.shade300,
                           filled: true,
                         ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Location is required';
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(height: 8),
                       MyDateTimePicker(dobController: dateController),
@@ -173,33 +202,36 @@ void openModel(
           ),
           TextButton(
             onPressed: () async {
-              final uuid = const Uuid();
-              final incident = IncidentModel(
-                uuid: (actionName == 'Save') ? uuid.v1() : uuidNew!,
-                title: titleController.text,
-                description: descriptionController.text,
-                category: categoryDropDownValue,
-                Location: locationController.text,
-                dateTime: dateController.text,
-                status: statusDropDownValue,
-                photo: 'testing',
-              );
+              if (_formKey.currentState!.validate()) {
+                print('Form is valid!');
+                final uuid = const Uuid();
+                final incident = IncidentModel(
+                  uuid: (actionName == 'Save') ? uuid.v1() : uuidNew!,
+                  title: titleController.text,
+                  description: descriptionController.text,
+                  category: categoryDropDownValue,
+                  Location: locationController.text,
+                  dateTime: dateController.text,
+                  status: statusDropDownValue,
+                  photo: 'testing',
+                );
 
-              try {
-                if (actionName == 'Save') {
-                  await context.read<IncidentCubit>().addIncident(incident);
-                } else {
-                  await context.read<IncidentCubit>().updateIncident(
-                    uuidNew!,
-                    incident,
+                try {
+                  if (actionName == 'Save') {
+                    await context.read<IncidentCubit>().addIncident(incident);
+                  } else {
+                    await context.read<IncidentCubit>().updateIncident(
+                      uuidNew!,
+                      incident,
+                    );
+                  }
+
+                  Navigator.pop(context);
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Something went wrong: $e')),
                   );
                 }
-
-                Navigator.pop(context);
-              } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Something went wrong: $e')),
-                );
               }
             },
             child: Text(actionName),

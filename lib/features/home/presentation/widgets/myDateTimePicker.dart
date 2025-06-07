@@ -32,6 +32,12 @@ class _MyDateTimePickerState extends State<MyDateTimePicker> {
         fillColor: Colors.blue[300],
         filled: true,
       ),
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'Date & Time are required';
+        }
+        return null;
+      },
       readOnly: true,
       onTap: () => selectDateAndTime(context),
     );
