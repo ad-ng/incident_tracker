@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:incident_tracker/features/home/data/models/incident_model.dart';
 import 'package:incident_tracker/features/home/domain/usercases/add_incident_dialog.dart';
 import 'package:incident_tracker/features/home/presentation/bloc/incidents_cubit.dart';
@@ -161,6 +162,18 @@ class _IncidentCardState extends State<IncidentCard> {
                                                     IncidentCubit
                                                   >(context).deleteIncident(
                                                     widget.incidentModel.uuid,
+                                                  );
+                                                  Fluttertoast.showToast(
+                                                    msg:
+                                                        "Incident deleted successfully",
+                                                    toastLength:
+                                                        Toast.LENGTH_LONG,
+                                                    gravity:
+                                                        ToastGravity.BOTTOM,
+                                                    backgroundColor:
+                                                        Colors.blue,
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0,
                                                   );
                                                 },
                                                 child: Text('Delete'),
