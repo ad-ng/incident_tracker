@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:incident_tracker/features/home/data/models/incident_model.dart';
 import 'package:incident_tracker/features/home/presentation/bloc/incidents_cubit.dart';
+import 'package:incident_tracker/features/home/presentation/widgets/myDateTimePicker.dart';
 import 'package:uuid/uuid.dart';
 
 void openModel(
@@ -104,14 +105,7 @@ void openModel(
                         ),
                       ),
                       SizedBox(height: 8),
-                      TextFormField(
-                        controller: dateController,
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(),
-                          labelText: 'Date & Time',
-                        ),
-                      ),
+                      MyDateTimePicker(dobController: dateController),
                       SizedBox(height: 8),
                       Row(
                         children: [
