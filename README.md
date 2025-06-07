@@ -118,5 +118,3 @@ This is a Flutter-based mobile application developed as part of an exam assignme
 
 ---
 
-## 📂 Project Structure (Optional)
-
